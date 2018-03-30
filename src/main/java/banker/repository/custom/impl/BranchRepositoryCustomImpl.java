@@ -17,16 +17,19 @@ public class BranchRepositoryCustomImpl implements BranchRepositoryCustom {
     @PersistenceContext
     EntityManager entityManager;
 
-    private final String BRANCH_TABLE = "branch";
+    private final String BRANCH_TABLE = "branches";
+    private final String BANK_TABLE = "banks";
 
     public List<Branch> findByBankNameAndCity(String bankName, String city) {
         Query query = entityManager.createNativeQuery(
                 "SELECT br.* FROM "+BRANCH_TABLE+" br " +
-                        "WHERE br.city = ? AND " +
+                        "WHERE upper(br.city) = ? AND " +
                         "br.bank_id IN " +
-                        "(SELECT id FROM bank b WHERE b.name LIKE ?)"
+                        "(SELECT id FROM "+BANK_TABLE+" b WHERE upper(b.name) LIKE ?)"
                 , Branch.class);
 
+        bankName = bankName.toUpperCase().trim();
+        city = city.toUpperCase().trim();
         query.setParameter(1, city);
         query.setParameter(2, "%"+bankName+"%");
 

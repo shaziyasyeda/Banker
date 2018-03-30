@@ -8,6 +8,7 @@ import javax.persistence.*;
  */
 
 @Entity
+@Table(name = "branches")
 public class Branch {
 
     @Id
