@@ -14,4 +14,6 @@ public interface BranchRepository extends CrudRepository<Branch, Long> {
     public Branch findByIfsc(String ifsc);
 
     public List<Branch> findByBankNameAndCity(String bankName, String city);
+
+    public List<Branch> findByCity(String city);
 }

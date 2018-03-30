@@ -13,4 +13,5 @@ import java.util.List;
 public interface BranchService {
     public BranchEntity getBranchByIfsc(String ifsc) throws Exception;
     public List<BranchEntity> getBranches(String bankName, String city) throws Exception;
+    public List<BranchEntity> getBranchesByCity(String city) throws Exception;
 }

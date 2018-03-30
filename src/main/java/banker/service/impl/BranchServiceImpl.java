@@ -78,4 +78,36 @@ public class BranchServiceImpl implements BranchService{
             throw e;
         }
     }
+
+    public List<BranchEntity> getBranchesByCity(String city) throws Exception{
+        try {
+            if(city == null) {
+                throw new IllegalArgumentException("Missing required parameters");
+            }
+
+            ArrayList<BranchEntity> branchEntities =  new ArrayList<BranchEntity>();;
+            List<Branch> branches = branchRepository.findByCity(city.toUpperCase());
+
+            if(branches == null) {
+                return branchEntities;
+            }
+
+            for (Branch branch: branches) {
+                BranchEntity branchEntity = new BranchEntity();
+                branchEntity.name = branch.getBranchName();
+                branchEntity.city = branch.getCity();
+                branchEntity.state = branch.getState();
+                branchEntity.ifsc = branch.getIfsc();
+                branchEntity.bank = branch.getBank();
+                branchEntity.address = branch.getAddress();
+                branchEntities.add(branchEntity);
+            }
+
+            return branchEntities;
+        } catch (Exception e) {
+            //Log here if you would like to have logs at service layer
+            System.out.println(e.getLocalizedMessage());
+            throw e;
+        }
+    }
 }

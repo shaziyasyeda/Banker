@@ -3,28 +3,57 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Banker App</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap.css"> -->
 </head>
 
 <body ng-app="banker">
 
+    <h2>Indian Banks</h2>
+
     <div class="container" ng-controller="BankController">
         <div class="row">
-            City dropdown and search bar
+            <div class="col-md-6">
+                <select ng-model="selectedCity"
+                        ng-options="city for city in cities"
+                        ng-change="getBranchesByCity()"/>
+            </div>
+            <div class="col-md-6">
+                <input placeholder="Filter by name" ng-model="bankFilter" 
+                ng-change="filterByBank()"/>
+            </div>
         </div>
 
 
         <div class="row">
-            list of branches
+            <table>
+                <thead>
+                    <th>IFSC</th>
+                    <th>BankName</th>
+                    <th>Address</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="branch in filteredBranches">
+                        <td>{{branch.ifsc}}</td>
+                        <td>{{branch.bank.name}}</td>
+                        <td>{{branch.address}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
     </div>
 </body>
 
-<script src="js/lib/angular.min.js"></script>
-<script src="js/lib/bootstrap-min.js"></script>
-<script src="js/app/app.js"></script>
-<script src="js/app/bankcontroller.js"></script>
-<link rel="stylesheet" href="css/lib/bootstrap.min.css"/>
-<link rel="stylesheet" href="css/app/app.css"/>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- <script src="/js/lib/bootstrap.js"></script> -->
+<script src="/js/app/app.js"></script>
+<script src="/js/app/bankcontroller.js"></script>
+<script src="/js/app/bankservice.js"></script>
 
 </html>

@@ -36,10 +36,14 @@ public class BankController {
     }
 
     @RequestMapping(value= "/branches", method = RequestMethod.GET)
-    public ResponseEntity<List<BranchEntity>> getBranches(@RequestParam String bankName, @RequestParam String city) {
+    public ResponseEntity<List<BranchEntity>> getBranches(@RequestParam(name = "bankName", required = false) String bankName, @RequestParam String city) {
         List<BranchEntity> branches = null;
         try {
-            branches = branchService.getBranches(bankName, city);
+            if(bankName != null) {
+                branches = branchService.getBranches(bankName, city);
+            } else {
+                branches = branchService.getBranchesByCity(city);
+            }
             return new ResponseEntity(branches, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity(branches, HttpStatus.BAD_REQUEST);

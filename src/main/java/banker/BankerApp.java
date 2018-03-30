@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * Created by shaziya on 25/3/18.
  */
+
 @SpringBootApplication
 public class BankerApp {
 
